@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>You Scanned Safely</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+  /* Layout: single phone-first column — a reassuring status block, the teaching moment, a checklist recap, a booth footer. */
+  :root {
+    --bg: #f4f6f8;
+    --surface: #ffffff;
+    --fg: #16202b;
+    --muted: #5a6b7a;
+    --line: #dce3ea;
+    --safe: #0f8a5f;
+    --safe-soft: #e3f3ec;
+    --warn: #b4620a;
+    --warn-soft: #fbeedd;
+    --display: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e151c;
+      --surface: #161f29;
+      --fg: #e7edf3;
+      --muted: #94a6b6;
+      --line: #273442;
+      --safe: #3bc088;
+      --safe-soft: #122a21;
+      --warn: #e5a24d;
+      --warn-soft: #2a2012;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    line-height: 1.55;
+    padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+  }
+  img { max-width: 100%; }
+  .wrap {
+    max-width: 34rem;
+    margin: 0 auto;
+    padding-left: max(18px, env(safe-area-inset-left, 0px));
+    padding-right: max(18px, env(safe-area-inset-right, 0px));
+    padding-block: clamp(1.75rem, 6vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .status {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--safe);
+    border-radius: 14px;
+    padding: 1.5rem 1.4rem;
+    text-align: center;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+    background: var(--safe-soft);
+    margin-bottom: 0.9rem;
+  }
+  .badge svg { width: 1.9rem; height: 1.9rem; stroke: var(--safe); }
+  .eyebrow {
+    font-family: var(--display);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--safe);
+    margin: 0 0 0.35rem;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    line-height: 1.1;
+    text-wrap: balance;
+    margin: 0 0 0.6rem;
+  }
+  .status p { margin: 0; color: var(--muted); font-size: 0.98rem; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.3rem 1.3rem;
+  }
+  .card h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 0 0 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .q-num {
+    font-family: var(--display);
+    font-size: 0.78rem;
+    color: var(--warn);
+    background: var(--warn-soft);
+    border-radius: 6px;
+    padding: 0.1rem 0.45rem;
+  }
+  .card p { margin: 0 0 0.6rem; color: var(--fg); font-size: 0.97rem; }
+  .card p:last-child { margin-bottom: 0; }
+  .lede { font-weight: 600; }
+  code { font-family: var(--display); font-size: 0.9em; }
+  ul.checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  ul.checks li { display: flex; gap: 0.65rem; align-items: flex-start; font-size: 0.95rem; }
+  ul.checks svg { flex: 0 0 auto; width: 1.1rem; height: 1.1rem; margin-top: 0.2rem; stroke: var(--safe); }
+  ul.checks b { font-family: var(--display); font-weight: 600; }
+  .rule {
+    background: var(--safe-soft);
+    border: 1px solid var(--safe);
+    border-radius: 12px;
+    padding: 1.1rem 1.2rem;
+  }
+  .rule p { font-size: 1rem; margin: 0; }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: var(--display);
+    letter-spacing: 0.02em;
+    padding-top: 0.5rem;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="status">
+    <span class="badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </span>
+    <p class="eyebrow">Safe scan</p>
+    <h1>You scanned safely.</h1>
+    <p>This QR code led to a harmless page built for a demo. Nothing was installed, nothing asked for your password. But that was never guaranteed by the code itself &mdash; it was up to <em>you</em> to check.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="q-num">Q</span> What did your phone show first?</h2>
+    <p class="lede">Before this page opened, your phone showed you the link.</p>
+    <p>A good scanner (your built-in Camera, Google Lens) decodes the QR and shows the destination as a banner &mdash; it waits for you to tap. That pause is the entire defence against <b>quishing</b> (QR phishing). Apps that open links instantly take that pause away.</p>
+    <p>The attack is simple: a sticker with a malicious QR gets slapped over a real one &mdash; on a parking meter, a poster, a restaurant table. The code looks identical. Only the link underneath is different.</p>
+  </div>
+
+  <div class="card">
+    <h2>Reading a QR link in 4 checks</h2>
+    <ul class="checks">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Find the real domain.</b> Read the part just left of the first single slash, right-to-left. In <code>paypal.com.secure-login.ru</code> the real site is <code>secure-login.ru</code> &mdash; not PayPal.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Watch for lookalikes.</b> <code>paypa1.com</code>, <code>micros0ft.com</code>, or odd characters that look Latin but aren't (a sign: <code>xn--</code> in the link).</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Distrust shorteners &amp; raw IPs.</b> <code>bit.ly/xxxx</code> or <code>http://45.9.x.x</code> hide where you're really going. Expand the short link before trusting it.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Check the sticker.</b> A QR stuck on crookedly, or a sticker-over-a-sticker, is the classic quishing tell in the real world.</span></li>
+    </ul>
+  </div>
+
+  <div class="rule">
+    <p class="eyebrow">The rule that beats all four</p>
+    <p>A QR code should never be how you <em>arrive</em> at a login or payment page. If a scan lands you somewhere asking for a password or money, close it and reach the site the way you already know &mdash; type it, use a bookmark, or open the official app.</p>
+  </div>
+
+  <footer>SIIT cybersecurity booth &middot; quishing demo</footer>
+</div>
+</body>
+</html>
